@@ -1,0 +1,27 @@
+{
+   "name": "Unseen - Chat Privacy",
+   "short_name": "Unseen",
+   "description": "Hides the ”Seen” feature from Facebook™ chat and Messenger of your friends. Blocks Delivery receipts...",
+   "manifest_version": 2,
+   "version": "1",
+   "browser_action": {
+      "default_icon": {
+         "128": "assets/icon/128.png",
+         "256": "assets/icon/256.png",
+         "32": "assets/icon/32.png",
+         "64": "assets/icon/64.png"
+      },
+      "default_popup": "popup.html"
+   },
+   "web_accessible_resources": [ "assets/icon/*.png" ],
+   "icons": {
+      "128": "assets/icon/128.png",
+      "256": "assets/icon/256.png",
+      "32": "assets/icon/32.png",
+      "64": "assets/icon/64.png"
+   },
+   "background": {
+      "scripts": [ "js/lib/jquery.js", "background.js" ]
+   },
+   "permissions": [ "webRequest", "webRequestBlocking", "*://*.facebook.com/*",  "*://*.messenger.com/*", "storage"]
+}
