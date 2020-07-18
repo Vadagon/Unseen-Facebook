@@ -1,0 +1,11 @@
+Your friends won't know if you've read their messages or not, or even your activity status.
+
+Unseen for Facebook Messenger extension features:
+🚀 Block the ”Seen” feature
+🚀 Block the "Delivery receipts" feature
+🚀 Block "Last active" indicator
+🚀 Block the "Typing..." indicator
+
+❗️❗️❗️ The Chrome extension is in no way associated with Facebook and its partners.
+
+Help us improve your invisibility. If you have any trouble or suggestions email us at verbalike@gmail.com

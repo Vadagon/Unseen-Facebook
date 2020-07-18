@@ -1,7 +1,7 @@
 {
    "name": "Unseen - Chat Privacy",
    "short_name": "Unseen",
-   "description": "Hides the ”Seen” feature from Facebook™ chat and Messenger of your friends. Blocks Delivery receipts...",
+   "description": "Hides the ”Seen” feature from Facebook Messenger chat. Unread messages. No Active status.",
    "manifest_version": 2,
    "version": "1",
    "browser_action": {
