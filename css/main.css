@@ -22,13 +22,14 @@ hgroup, nav, section {
     vertical-align: baseline;
     outline: none;
 }
-
+/*#7a00ff*/
 article, aside, dialog, figure, footer, header,
 hgroup, nav, section {
     display: block;
 }
 
 body {
+    border: 8px solid #7e4af6;
     background-color: white;
     line-height: 1.5;
 }
@@ -466,7 +467,7 @@ textarea {
     border-radius: 0 0 2px 2px;
     text-align: center;
     border-bottom: 1px solid #deddd9;
-    background-color: #448aff;
+    background-color: #7a00ff;
     font-size: 16px;
     line-height: 1;
 }
@@ -548,7 +549,7 @@ textarea {
     border-radius: 0 0 2px 2px;
     text-align: center;
     border-top: 1px solid #deddd9;
-    background-color: #448aff;
+    background-color: #7a00ff;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
 }
