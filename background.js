@@ -2,21 +2,22 @@ class Unseen {
     constructor() {
         this.onInstall();
         this.settings = {
-            'block_chat_seen': true,
-            'block_chat_receipts': true,
-            'block_typing_indicator': true,
+            'isPaid': false,
+            'block_chat_seen': false,
+            'block_chat_receipts': false,
+            'block_typing_indicator': false,
             'fbunseen_messenger': false,
             'block_chat_indicator': false,
             'show_mark_as_read': false,
             'dateInstall': (new Date().getTime())
         };
-        chrome.storage.local.get(this.settings, function (items) {
+        chrome.storage.sync.get(this.settings, function (items) {
             this.settings = items;
             this.init()
         }.bind(this));
 
         chrome.storage.onChanged.addListener(function (changes, namespace) {
-            chrome.storage.local.get(null, function (items) {
+            chrome.storage.sync.get(null, function (items) {
                 this.settings = items;
                 this.init();
             }.bind(this));
@@ -27,11 +28,12 @@ class Unseen {
     onInstall() {
         chrome.runtime.onInstalled.addListener(function (details) {
             if (details.reason == "install") {
-                chrome.storage.local.set({
+                chrome.storage.sync.set({
                     'uid': this.generateUid(),
-                    'block_chat_seen': true,
-                    'block_chat_receipts': true,
-                    'block_typing_indicator': true,
+                    'isPaid': false,
+                    'block_chat_seen': false,
+                    'block_chat_receipts': false,
+                    'block_typing_indicator': false,
                     'fbunseen_messenger': false,
                     'block_chat_indicator': false,
                     'show_mark_as_read': false,
@@ -40,11 +42,12 @@ class Unseen {
 
             } else if (details.reason == "update") {
                 if (this.settings == null) {
-                    chrome.storage.local.set({
+                    chrome.storage.sync.set({
                         'uid': this.generateUid(),
-                        'block_chat_seen': true,
-                        'block_chat_receipts': true,
-                        'block_typing_indicator': true,
+                        'isPaid': false,
+                        'block_chat_seen': false,
+                        'block_chat_receipts': false,
+                        'block_typing_indicator': false,
                         'fbunseen_messenger': false,
                         'block_chat_indicator': false,
                         'show_mark_as_read': false,
@@ -52,7 +55,7 @@ class Unseen {
                         'dateUpdate': (new Date().getTime())
                     });
                 } else {
-                    chrome.storage.local.set({
+                    chrome.storage.sync.set({
                         'dateUpdate': (new Date().getTime())
                     })
                 }
@@ -89,7 +92,10 @@ class Unseen {
         }, ['blocking']);
 
 
+        console.log('ddd: ', this.settings.block_chat_indicator)
         chrome.webRequest.onBeforeRequest.addListener(function (details) {
+            // var scheme = details.url.split('://')[0]
+            // return { redirectUrl: scheme + '://robwu.nl/204' };
             return {cancel: this.settings.block_chat_indicator}
         }.bind(this), {
             urls: ['*://edge-chat.facebook.com/*', '*://0-edge-chat.facebook.com/*', '*://1-edge-chat.facebook.com/*',
@@ -101,7 +107,8 @@ class Unseen {
                 '*://3-edge-chat.messenger.com/*', '*://4-edge-chat.messenger.com/*', '*://5-edge-chat.messenger.com/*',
                 '*://6-edge-chat.messenger.com/*', '*://7-edge-chat.messenger.com/*', '*://8-edge-chat.messenger.com/*',
                 '*://9-edge-chat.messenger.com/*', '*://www.messenger.com/ajax/chat/*', '*://www.messenger.com/chat/*',
-                '*://www.messenger.com/ajax/presence/*']
+                '*://www.messenger.com/ajax/presence/*', 'wss://edge-chat.facebook.com/*'],
+            types: ['xmlhttprequest', 'websocket']
         }, ['blocking']);
 
         chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
@@ -124,7 +131,7 @@ class Unseen {
                 case "addMessenger":
                     chrome.permissions.request({origins: ["*://*.messenger.com/*"]}, function (granted) {
                         if (!granted) {
-                            chrome.storage.local.set({fbunseen_messenger: false})
+                            chrome.storage.sync.set({fbunseen_messenger: false})
                         }
                     }.bind(this));
                     break;

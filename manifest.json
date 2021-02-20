@@ -3,7 +3,7 @@
    "short_name": "Unseen",
    "description": "Hides the ”Seen” feature from Facebook Messenger chat. Unread messages. No Active status.",
    "manifest_version": 2,
-   "version": "3",
+   "version": "5",
    "browser_action": {
       "default_icon": {
          "128": "assets/icon/128.png",
@@ -23,5 +23,13 @@
    "background": {
       "scripts": [ "js/lib/jquery.js", "background.js" ]
    },
+   "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": ["https://*.facebook.com/*", "https://*.messenger.com/*"],
+      "run_at": "document_start"
+    }
+  ],
+
    "permissions": [ "webRequest", "webRequestBlocking", "*://*.facebook.com/*",  "*://*.messenger.com/*", "storage"]
 }

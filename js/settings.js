@@ -1,6 +1,6 @@
 class UnseenPopup{
     constructor(){
-        chrome.storage.local.get(null, function (settings) {
+        chrome.storage.sync.get(null, function (settings) {
             this.settings = settings;
             this.init()
         }.bind(this))
@@ -31,10 +31,34 @@ class UnseenPopup{
             let obj = {},
                 k = id;
             obj[k] = state;
-            chrome.storage.local.set(obj);
+            chrome.storage.sync.set(obj);
 
 
         }.bind(this));
+
+
+        console.log(this.settings)
+        $('#paymentScreen').hide();
+
+        if(!this.settings.isPaid) 
+            $('table').click((event)=>{
+                if(!this.settings.isPaid){
+                    event.preventDefault();
+                    $('#paymentScreen').show()
+                }
+            })
+
+        if(!this.settings.isPaid){
+            $('.unseenfooterStars').hide()
+        }
+
+        $('#paymentScreen > a')[0].href=`https://us-central1-extensions-uni.cloudfunctions.net/way4pay/payWithId/${this.settings.uid}?productName=Unseen%20Messenger&amount=1.99`
+        $.get('https://us-central1-extensions-uni.cloudfunctions.net/main/getUserByEmail/'+this.settings.uid).done(()=>{
+            this.settings.isPaid = true;
+            $('.unseenfooterStars').show()
+            chrome.storage.sync.set({isPaid: true});
+        })
+
     }
 
     set_icon(state) {
@@ -54,6 +78,14 @@ class UnseenPopup{
     }
 
 }
+// $.get('https://us-central1-extensions-uni.cloudfunctions.net/main/getUserByEmail/'+user.USER_ID)
+
+
  $(function () {
      new UnseenPopup();
  });
+
+    
+
+// https://us-central1-extensions-uni.cloudfunctions.net/way4pay/payWithId/assass?productName=Unseen%20Messenger&amount=8.99
+

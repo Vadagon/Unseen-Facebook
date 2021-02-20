@@ -553,6 +553,10 @@ textarea {
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
 }
+.unseenfooter a{
+    text-decoration: none;
+    color: white !important;
+}
 
 .linkcolor {
     color: #4C4C4C;
@@ -652,4 +656,39 @@ body.measuring .tab-content, body.measuring #search-result-container {
     display: block !important;
     opacity: 0;
     overflow: hidden;
+}
+
+#paymentScreen{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+#paymentScreen h2{
+    color: white;
+    margin: 0;
+}
+#paymentScreen a{
+    padding: 7px 14px;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    position: relative;
+    display: inline-block;
+    margin-top: 3px;
+}
+
+#tabletable{
+    display: block;
+    position: relative;
+}
+
+.unseenfooter a:hover{
+    text-decoration: underline !important;
 }
